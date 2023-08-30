@@ -332,6 +332,10 @@ type PluginConfig struct {
 	//
 	// For example, the value can be '5h', '2h30m', '10s'.
 	DrainExecSyncIOTimeout string `toml:"drain_exec_sync_io_timeout" json:"drainExecSyncIOTimeout"`
+
+	// RootDir is the root directory path for managing cri plugin files,
+	// e.g. metadata checkpoint etc.). Default use the cri root dir
+	RootDir string `toml:"root_dir" json:"root_dir"`
 }
 
 // X509KeyPairStreaming contains the x509 configuration for streaming

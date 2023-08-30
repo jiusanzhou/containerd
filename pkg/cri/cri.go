@@ -70,6 +70,16 @@ func initCRIService(ic *plugin.InitContext) (interface{}, error) {
 		RootDir:            ic.Root,
 		StateDir:           ic.State,
 	}
+
+	// if the user customize the root dir fir cri, set to the root_dir field to config
+	if pluginConfig.RootDir != "" {
+		c.RootDir = pluginConfig.RootDir
+		// make sure the directory exits
+		if err := os.MkdirAll(c.RootDir, 0755); err != nil {
+			return nil, fmt.Errorf("failed to create custom root directory for cri: %w", err)
+		}
+	}
+
 	log.G(ctx).Infof("Start cri plugin with config %+v", c)
 
 	if err := setGLogLevel(); err != nil {
